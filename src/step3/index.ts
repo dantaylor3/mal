@@ -49,35 +49,14 @@ function evalCozy(ast: CozyType, env: Env): CozyType {
           return evalCozy(ast.v[2], newEnv)
         }
         default: {
-          // since first symbol isn't a special case
-          // if first symbol resolves to a function, reduce the function by calling it
-          // otherwise, just reduce the entire list
+          // since first symbol isn't a special case, list must be treated as a function
+          // (1 2 3) for example should fail since 1 is not defined
           const result = List(ast.v.map(e => evalCozy(e, env)))
           const [first, ...rest] = result.v
-
-          if (first.t === 'function') {
-            return first.v(...rest)
-          } else {
-            return result
-          }
+          assertCozyType('function', first)
+          return first.v(...rest)
         }
       }
-
-      // return List(ast.v.map(e => evalCozy(e, env)))
-
-      // // since we handled all special cases, reduce all of the elements in the list
-      // const result = List(ast.v.map(e => evalCozy(e, env)))
-
-      // switch (result.v[0].t) {
-      //   // if first element is a function, to reduce, we have to call it
-      //   case 'function': {
-      //     const [f, ...args] = result.v
-      //     return f.v(...args)
-      //   }
-      //   // if there wasn't a way to reduce the list, return it
-      //   default:
-      //     return result
-      // }
     }
     // no way to reduce primitives like numbers
     default:
