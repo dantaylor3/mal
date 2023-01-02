@@ -10,6 +10,6 @@ export const printStr = (t: CozyType): string => {
     case 'string':
       return `${t.v}`
     case 'null':
-      return 'nil'
+      return 'null'
   }
 }
