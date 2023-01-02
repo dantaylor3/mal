@@ -17,8 +17,6 @@ import {
   String,
 } from './types'
 
-import {evalCozy} from '.'
-
 export const globalEnv: Env = createFromMap({
   '+': Function((...args) => {
     assertCozyArray('number', args)

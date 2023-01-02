@@ -1,5 +1,4 @@
 import assert from 'assert'
-import * as util from 'util'
 
 import log from 'loglevel'
 log.setDefaultLevel('debug')
@@ -34,13 +33,13 @@ const macroExpand = (ast: CozyType, env: Env): CozyType => {
   return ast
 }
 
-const quasiquote = (ast: CozyType, env: Env): CozyType => {
+const quasiquote = (ast: CozyType): CozyType => {
   switch (ast.t) {
     case 'list': {
       if (ast.v[0]?.v === 'unquote') {
         return ast.v[1]
       } else {
-        return List([Symbol('list'), ...ast.v.map(e => quasiquote(e, env))])
+        return List([Symbol('list'), ...ast.v.map(e => quasiquote(e))])
       }
     }
     default:
@@ -78,9 +77,9 @@ export function evalCozy(ast: CozyType, env: Env): CozyType {
           case 'quote':
             return ast.v[1]
           case 'quasiquoteexpand':
-            return quasiquote(ast.v[1], env)
+            return quasiquote(ast.v[1])
           case 'quasiquote':
-            return evalCozy(quasiquote(ast.v[1], env), env)
+            return evalCozy(quasiquote(ast.v[1]), env)
           case 'unquote':
             return evalCozy(ast.v[1], env)
           case 'if': {
