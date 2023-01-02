@@ -1,0 +1,2 @@
+(def! inc3 (fn* (a) (+ 3 a))) ; increment the number by 3
+(def! inc4 (fn* (a) (+ 4 a)))

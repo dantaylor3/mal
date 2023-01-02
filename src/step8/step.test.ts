@@ -1,17 +1,7 @@
-import {step1Tests} from '../step1/step.test'
-import {step2Tests} from '../step2/step.test'
-import {step3Tests} from '../step3/step.test'
-import {step4Tests} from '../step4/step.test'
-import {step6Tests} from '../step6/step.test'
 import {step7Tests} from '../step7/step.test'
 
 import {createRepl} from '.'
 
-step1Tests()
-step2Tests()
-step3Tests()
-step4Tests()
-step6Tests()
 step7Tests()
 
 export const step8Tests = () =>

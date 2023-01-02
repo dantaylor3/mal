@@ -1,15 +1,11 @@
-import {step1Tests} from '../step1/step.test'
-import {step2Tests} from '../step2/step.test'
 import {step3Tests} from '../step3/step.test'
 
 import {createRepl} from '.'
 
-step1Tests()
-step2Tests()
 step3Tests()
 
 export const step4Tests = () =>
-  describe('step 3', () => {
+  describe('step 4', () => {
     describe('do', () => {
       const repl = createRepl()
 
